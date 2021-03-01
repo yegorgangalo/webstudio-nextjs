@@ -1,0 +1,49 @@
+/* SOCIAL ICONS*/
+.social-list {
+  display: flex;
+  justify-content: center;
+
+  .footer & {
+    margin-top: 20px;
+
+    @include media-size(min-desktop) {
+      justify-content: flex-start;
+    }
+  }
+}
+
+.social-item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.social-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  fill: #afb1b8;
+  @include transitionTwoProp(fill, background-color);
+
+  &:hover,
+  &:focus {
+    background-color: getColor("accent");
+    fill: getColor("primary-white");
+  }
+}
+
+.footer .social-link {
+  background-color: rgba(255, 255, 255, 0.1);
+  fill: getColor("primary-white");
+
+  &:hover,
+  &:focus {
+    background-color: getColor("accent");
+  }
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+}
