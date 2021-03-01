@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "serve": "json-server -w db.json -p 3030"
+    "serve": "json-server -w db.json -p 3030",
+    "predeploy": "npm run build",
+    "deploy": "netlify deploy -p"
   },
   "dependencies": {
     "axios": "^0.21.1",
