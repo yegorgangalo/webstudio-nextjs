@@ -1,26 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MainLayout } from '../layouts/MainLayout';
-import ExampleItem from '../components/ExampleItem';
-
+import ExampleList from '../components/ExampleList';
+import FilterBtnList from '../components/FilterBtnList';
 
 export default function Portfolio({ serverTypes, serverExamples }) {
-  const [examples, setExamples] = useState(serverExamples);
   const [types, setTypes] = useState(serverTypes);
+  const [examples, setExamples] = useState(serverExamples);
   const [filter, setFilter] = useState('');
-  const [filteredExamples, setFilteredExamples] = useState('');
-
-    useEffect(() => {
-      if (!examples) {
-        return;
-      }
-      const filtered = examples.filter(example => {
-        return (filter === 'Все' || filter === '') ?
-          example :
-          example.type.includes(filter.slice(0, -1));
-      })
-      setFilteredExamples(filtered);
-    }, [filter, examples])
 
     useEffect(() => {
         async function load() {
@@ -45,21 +32,8 @@ export default function Portfolio({ serverTypes, serverExamples }) {
             <section className="examples">
               <div className="container">
                 <h1 className="visually-hidden">Примеры работ</h1>
-                {/* <!--radio button--> */}
-                  <ul className="filtr list">
-                    {types && types.map((type, index) => (
-                      <li className="item" key={index}>
-                    <button type="button" className="button" onClick={()=>setFilter(type)}>{type}</button>
-                  </li>)
-                    )}
-                </ul>
-                {/* <!-- EXAMPLES --> */}
-                <ul className="examples-list list">
-                    {filteredExamples && filteredExamples.map(({id, ...example}) => (
-                      <ExampleItem example={example} key={id}/>
-                    ))
-                  }
-                </ul>
+                <FilterBtnList types={types} setFilter={setFilter} />
+                <ExampleList examples={examples} filter={filter}/>
               </div>
             </section>
         </MainLayout>
