@@ -1,6 +1,21 @@
 import Link from 'next/link';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useForm } from "react-hook-form";
 
 export default function Footer() {
+  const { register, handleSubmit, errors, reset } = useForm();
+
+  const formSubmit = (data) => {
+      axios.post(`${process.env.API_URL}/mailing`, data)
+        .then((res) => {
+          reset();
+          toast("Your email have been added");
+        })
+        .catch(err => toast(err.message))
+  }
+
     return (
         <footer className="footer" id="footer">
               <div className="container footer-list">
@@ -55,8 +70,9 @@ export default function Footer() {
 
                   <section className="item">
                     <h2 className="title">Подпишитесь на рассылку</h2>
-                    <form className="footer-form">
-                      <input className="footer-input" type="email" name="email" placeholder="E-mail" />
+                    <form className="footer-form" onSubmit={handleSubmit(formSubmit)}>
+                      <input className="footer-input" type="email" name="email" placeholder="E-mail" ref={register({ pattern: /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/ })} required />
+                      {errors.email && "wrong email"}
                       <button className="button--primary" type="submit">
                         Подписаться
                         <svg className="button-icon">

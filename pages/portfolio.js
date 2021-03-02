@@ -1,6 +1,30 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { MainLayout } from '../layouts/MainLayout';
 
-export default function Portfolio() {
+
+export default function Portfolio({ serverTypes, serverExamples }) {
+    const [types, setTypes] = useState(serverTypes);
+    const [examples, setExamples] = useState(serverExamples);
+
+    useEffect(() => {
+        async function load() {
+          const {data: portfolioTypes} = await axios.get(`${process.env.API_URL}/portfolio-types`);
+          setTypes(portfolioTypes);
+          const {data: portfolioExamples} = await axios.get(`${process.env.API_URL}/examples`);
+          setExamples(portfolioExamples);
+        }
+        !serverTypes && !serverExamples && load();
+    }, [])
+
+    if (!types || !examples) {
+        return (
+            <MainLayout headTitle="Portfolio">
+                <p>Loading...</p>
+            </MainLayout>
+        )
+    }
+
     return (
         <MainLayout headTitle="Portfolio">
             {/* <!--examples section--> */}
@@ -9,419 +33,85 @@ export default function Portfolio() {
           <h1 className="visually-hidden">Примеры работ</h1>
 
           {/* <!--radio button--> */}
-          <ul className="filtr list">
-            <li className="item">
-              <button type="button" className="button">Все</button>
-            </li>
-            <li className="item">
-              <button type="button" className="button">Приложения</button>
-            </li>
-            <li className="item">
-              <button type="button" className="button">Веб-сайты</button>
-            </li>
-            <li className="item">
-              <button type="button" className="button">Дизайн</button>
-            </li>
-            <li className="item">
-              <button type="button" className="button">Маркетинг</button>
-            </li>
+            <ul className="filtr list">
+              {types && types.map((type, index) => (
+                <li className="item" key={index}>
+              <button type="button" className="button">{type}</button>
+            </li>)
+              )}
           </ul>
           {/* <!-- EXAMPLES --> */}
           <ul className="examples-list list">
-            <li className="item">
-              <a href="" className="link">
-                <div className="block-overlay">
-                  <p className="text-overlay">
-                    Технокряк это современная площадка распространения
-                    коронавируса. Компании используют эту платформу для
-                    цифрового шпионажа и атак на защищённые сервера конкурентов.
-                  </p>
-                  <picture>
-                    <source
-                      srcSet="./images/examples-1-450img@1x.webp 1x,
-                              ./images/examples-1-450img@2x.webp 2x"
-                      media="(max-width: 767px)"
-                      type="image/webp"
-                    />
-                    <source
-                      srcSet="./images/examples-1-354img@1x.webp 1x,
-                              ./images/examples-1-354img@2x.webp 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)"
-                      type="image/webp"
-                    />
-                    <source
-                      srcSet="./images/examples-1-370img@1x.webp 1x,
-                              ./images/examples-1-370img@2x.webp 2x"
-                      media="(min-width: 1200px)"
-                      type="image/webp"
-                    />
-
-                    <source
-                      srcSet="./images/examples-1-450img@1x.jpg 1x,
-                              ./images/examples-1-450img@2x.jpg 2x"
-                      media="(max-width: 767px)"
-                    />
-                    <source
-                    srcSet="./images/examples-1-354img@1x.jpg 1x,
-                            ./images/examples-1-354img@2x.jpg 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)"
-                    />
-                    <source
-                      srcSet="./images/examples-1-370img@1x.jpg 1x,
-                              ./images/examples-1-370img@2x.jpg 2x"
-                      media="(min-width: 1200px)"
-                    />
-
-                    <img loading="lazy" className="image"
-                      src="./images/examples-1-354img@1x.jpg" alt="Аватар"  width="450"
-                    />
-                  </picture>
-                </div>
-                <div className="card-content">
-                  <h2 className="title">Технокряк</h2>
-                  <p className="text">Веб-сайт</p>
-                </div>
-              </a>
-            </li>
-            <li className="item">
-              <a href="" className="link">
-                <div className="block-overlay">
-                  <p className="text-overlay">
-                    Технокряк это современная площадка распространения
-                    коронавируса. Компании используют эту платформу для
-                    цифрового шпионажа и атак на защищённые сервера конкурентов.
-                  </p>
-                  <picture>
-                    <source
-                      srcSet="./images/examples-2-450img@1x.webp 1x,
-                              ./images/examples-2-450img@2x.webp 2x"
-                      media="(max-width: 767px)"
-                      type="image/webp"
-                    />
-                    <source
-                      srcSet="./images/examples-2-354img@1x.webp 1x,
-                              ./images/examples-2-354img@2x.webp 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)"
-                      type="image/webp"
-                    />
-                    <source
-                      srcSet="./images/examples-2-370img@1x.webp 1x,
-                              ./images/examples-2-370img@2x.webp 2x"
-                      media="(min-width: 1200px)"
-                      type="image/webp"
-                    />
-
-                    <source srcSet="./images/examples-2-450img@1x.jpg 1x,
-                                    ./images/examples-2-450img@2x.jpg 2x"
-                            media="(max-width: 767px)"
-                   />
-                    <source srcSet="./images/examples-2-354img@1x.jpg 1x,
-                                              ./images/examples-2-354img@2x.jpg 2x"
-                            media="(min-width: 768px) and (max-width: 1199px)"
-                   />
-                    <source srcSet="./images/examples-2-370img@1x.jpg 1x,
-                                    ./images/examples-2-370img@2x.jpg 2x"
-                            media="(min-width: 1200px)"
-                    />
-
-                    <img loading="lazy" className="image" src="./images/examples-2-354img@1x.jpg" alt="Аватар" width="450" />
-                  </picture>
-                </div>
-                <div className="card-content">
-                  <h2 className="title">Постер New Orlean vs Golden Star</h2>
-                  <p className="text">Дизайн</p>
-                </div>
-              </a>
-            </li>
-            <li className="item">
-              <a href="" className="link">
-                <div className="block-overlay">
-                  <p className="text-overlay">
-                    Технокряк это современная площадка распространения
-                    коронавируса. Компании используют эту платформу для
-                    цифрового шпионажа и атак на защищённые сервера конкурентов.
-                  </p>
-                  <picture>
-                    <source srcSet="./images/examples-3-450img@1x.webp 1x,
-                                                ./images/examples-3-450img@2x.webp 2x" media="(max-width: 767px)" type="image/webp"
+              {examples && examples.map(({ id, title, text, type, picture:{webp, jpg} }) => (
+                <li className="item" key={id}>
+                  <a href="" className="link">
+                    <div className="block-overlay">
+                      <p className="text-overlay">
+                        {text}
+                      </p>
+                      <picture>
+                        <source
+                          srcSet={`${webp.mobile[0]} 1x, ${webp.mobile[1]} 2x`}
+                          media="(max-width: 767px)"
+                          type="image/webp"
                         />
-                    <source srcSet="./images/examples-3-354img@1x.webp 1x,
-                                                ./images/examples-3-354img@2x.webp 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)" type="image/webp"
+                        <source
+                          srcSet={`${webp.tablet[0]} 1x, ${webp.tablet[1]} 2x`}
+                          media="(min-width: 768px) and (max-width: 1199px)"
+                          type="image/webp"
                         />
-                    <source srcSet="./images/examples-3-370img@1x.webp 1x,
-                                                ./images/examples-3-370img@2x.webp 2x" media="(min-width: 1200px)" type="image/webp"
+                        <source
+                          srcSet={`${webp.desktop[0]} 1x, ${webp.desktop[1]} 2x`}
+                          media="(min-width: 1200px)"
+                          type="image/webp"
                         />
 
-                    <source srcSet="./images/examples-3-450img@1x.jpg 1x,
-                                                ./images/examples-3-450img@2x.jpg 2x" media="(max-width: 767px)"
+                        <source
+                          srcSet={`${jpg.mobile[0]} 1x, ${jpg.mobile[1]} 2x`}
+                          media="(max-width: 767px)"
                         />
-                    <source srcSet="./images/examples-3-354img@1x.jpg 1x,
-                                              ./images/examples-3-354img@2x.jpg 2x" media="(min-width: 768px) and (max-width: 1199px)"
+                        <source
+                          srcSet={`${jpg.tablet[0]} 1x, ${jpg.tablet[1]} 2x`}
+                          media="(min-width: 768px) and (max-width: 1199px)"
                         />
-                    <source srcSet="./images/examples-3-370img@1x.jpg 1x,
-                                                ./images/examples-3-370img@2x.jpg 2x" media="(min-width: 1200px)"
-                        />
-
-                    <img loading="lazy" className="image" src="./images/examples-3-354img@1x.jpg" alt="Аватар" width="450" />
-                  </picture>
-                </div>
-                <div className="card-content">
-                  <h2 className="title">Ресторан Seafood</h2>
-                  <p className="text">Приложение</p>
-                </div>
-              </a>
-            </li>
-            <li className="item">
-              <a href="" className="link">
-                <div className="block-overlay">
-                  <p className="text-overlay">
-                    Технокряк это современная площадка распространения
-                    коронавируса. Компании используют эту платформу для
-                    цифрового шпионажа и атак на защищённые сервера конкурентов.
-                  </p>
-                  <picture>
-                    <source srcSet="./images/examples-4-450img@1x.webp 1x,
-                                                ./images/examples-4-450img@2x.webp 2x" media="(max-width: 767px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-4-354img@1x.webp 1x,
-                                                ./images/examples-4-354img@2x.webp 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-4-370img@1x.webp 1x,
-                                                ./images/examples-4-370img@2x.webp 2x" media="(min-width: 1200px)" type="image/webp"
+                        <source
+                          srcSet={`${jpg.desktop[0]} 1x, ${jpg.desktop[1]} 2x`}
+                          media="(min-width: 1200px)"
                         />
 
-                    <source srcSet="./images/examples-4-450img@1x.jpg 1x,
-                                                ./images/examples-4-450img@2x.jpg 2x" media="(max-width: 767px)"
+                        <img loading="lazy" className="image"
+                          src={`${jpg.tablet[0]}`}
+                          alt="Аватар"
+                          width="450"
                         />
-                    <source srcSet="./images/examples-4-354img@1x.jpg 1x,
-                                              ./images/examples-4-354img@2x.jpg 2x" media="(min-width: 768px) and (max-width: 1199px)"
-                        />
-                    <source srcSet="./images/examples-4-370img@1x.jpg 1x,
-                                                ./images/examples-4-370img@2x.jpg 2x" media="(min-width: 1200px)"
-                        />
-
-                    <img loading="lazy" className="image" src="./images/examples-4-354img@1x.jpg" alt="Аватар" width="450" />
-                  </picture>
-                </div>
-                <div className="card-content">
-                  <h2 className="title">Проект Prime</h2>
-                  <p className="text">Маркетинг</p>
-                </div>
-              </a>
-            </li>
-            <li className="item">
-              <a href="" className="link">
-                <div className="block-overlay">
-                  <p className="text-overlay">
-                    Технокряк это современная площадка распространения
-                    коронавируса. Компании используют эту платформу для
-                    цифрового шпионажа и атак на защищённые сервера конкурентов.
-                  </p>
-                  <picture>
-                    <source srcSet="./images/examples-5-450img@1x.webp 1x,
-                                                ./images/examples-5-450img@2x.webp 2x" media="(max-width: 767px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-5-354img@1x.webp 1x,
-                                                ./images/examples-5-354img@2x.webp 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-5-370img@1x.webp 1x,
-                                                ./images/examples-5-370img@2x.webp 2x" media="(min-width: 1200px)" type="image/webp"
-                        />
-
-                    <source srcSet="./images/examples-5-450img@1x.jpg 1x,
-                                                ./images/examples-5-450img@2x.jpg 2x" media="(max-width: 767px)"
-                        />
-                    <source srcSet="./images/examples-5-354img@1x.jpg 1x,
-                                              ./images/examples-5-354img@2x.jpg 2x" media="(min-width: 768px) and (max-width: 1199px)"
-                        />
-                    <source srcSet="./images/examples-5-370img@1x.jpg 1x,
-                                                ./images/examples-5-370img@2x.jpg 2x" media="(min-width: 1200px)"
-                        />
-
-                    <img loading="lazy" className="image" src="./images/examples-5-354img@1x.jpg" alt="Аватар" width="450" />
-                  </picture>
-                </div>
-                <div className="card-content">
-                  <h2 className="title">Проект Boxes</h2>
-                  <p className="text">Приложение</p>
-                </div>
-              </a>
-            </li>
-            <li className="item">
-              <a href="" className="link">
-                <div className="block-overlay">
-                  <p className="text-overlay">
-                    Технокряк это современная площадка распространения
-                    коронавируса. Компании используют эту платформу для
-                    цифрового шпионажа и атак на защищённые сервера конкурентов.
-                  </p>
-                  <picture>
-                    <source srcSet="./images/examples-6-450img@1x.webp 1x,
-                                                ./images/examples-6-450img@2x.webp 2x" media="(max-width: 767px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-6-354img@1x.webp 1x,
-                                                ./images/examples-6-354img@2x.webp 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-6-370img@1x.webp 1x,
-                                                ./images/examples-6-370img@2x.webp 2x" media="(min-width: 1200px)" type="image/webp"
-                        />
-
-                    <source srcSet="./images/examples-6-450img@1x.jpg 1x,
-                                                ./images/examples-6-450img@2x.jpg 2x" media="(max-width: 767px)"
-                        />
-                    <source srcSet="./images/examples-6-354img@1x.jpg 1x,
-                                              ./images/examples-6-354img@2x.jpg 2x" media="(min-width: 768px) and (max-width: 1199px)"
-                        />
-                    <source srcSet="./images/examples-6-370img@1x.jpg 1x,
-                                                ./images/examples-6-370img@2x.jpg 2x" media="(min-width: 1200px)"
-                        />
-
-                    <img loading="lazy" className="image" src="./images/examples-6-354img@1x.jpg" alt="Аватар" width="450" />
-                  </picture>
-                </div>
-                <div className="card-content">
-                  <h2 className="title">Inspiration has no Borders</h2>
-                  <p className="text">Веб-сайт</p>
-                </div>
-              </a>
-            </li>
-            <li className="item">
-              <a href="" className="link">
-                <div className="block-overlay">
-                  <p className="text-overlay">
-                    Технокряк это современная площадка распространения
-                    коронавируса. Компании используют эту платформу для
-                    цифрового шпионажа и атак на защищённые сервера конкурентов.
-                  </p>
-                  <picture>
-                    <source srcSet="./images/examples-7-450img@1x.webp 1x,
-                                                ./images/examples-7-450img@2x.webp 2x" media="(max-width: 767px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-7-354img@1x.webp 1x,
-                                                ./images/examples-7-354img@2x.webp 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-7-370img@1x.webp 1x,
-                                                ./images/examples-7-370img@2x.webp 2x" media="(min-width: 1200px)" type="image/webp"
-                        />
-
-                    <source srcSet="./images/examples-7-450img@1x.jpg 1x,
-                                                ./images/examples-7-450img@2x.jpg 2x" media="(max-width: 767px)"
-                        />
-                    <source srcSet="./images/examples-7-354img@1x.jpg 1x,
-                                              ./images/examples-7-354img@2x.jpg 2x" media="(min-width: 768px) and (max-width: 1199px)"
-                        />
-                    <source srcSet="./images/examples-7-370img@1x.jpg 1x,
-                                                ./images/examples-7-370img@2x.jpg 2x" media="(min-width: 1200px)"
-                        />
-
-                    <img loading="lazy" className="image" src="./images/examples-7-354img@1x.jpg" alt="Аватар" width="450" />
-                  </picture>
-                </div>
-                <div className="card-content">
-                  <h2 className="title">Издание Limited Edition</h2>
-                  <p className="text">Дизайн</p>
-                </div>
-              </a>
-            </li>
-            <li className="item">
-              <a href="" className="link">
-                <div className="block-overlay">
-                  <p className="text-overlay">
-                    Технокряк это современная площадка распространения
-                    коронавируса. Компании используют эту платформу для
-                    цифрового шпионажа и атак на защищённые сервера конкурентов.
-                  </p>
-                  <picture>
-                    <source srcSet="./images/examples-8-450img@1x.webp 1x,
-                                                ./images/examples-8-450img@2x.webp 2x" media="(max-width: 767px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-8-354img@1x.webp 1x,
-                                                ./images/examples-8-354img@2x.webp 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)" type="image/webp"
-                        />
-                    <source srcSet="./images/examples-8-370img@1x.webp 1x,
-                                                ./images/examples-8-370img@2x.webp 2x" media="(min-width: 1200px)" type="image/webp"
-                        />
-
-                    <source srcSet="./images/examples-8-450img@1x.jpg 1x,
-                                                ./images/examples-8-450img@2x.jpg 2x" media="(max-width: 767px)"
-                        />
-                    <source srcSet="./images/examples-8-354img@1x.jpg 1x,
-                                              ./images/examples-8-354img@2x.jpg 2x" media="(min-width: 768px) and (max-width: 1199px)"
-                        />
-                    <source srcSet="./images/examples-8-370img@1x.jpg 1x,
-                                                ./images/examples-8-370img@2x.jpg 2x" media="(min-width: 1200px)"
-                        />
-
-                    <img loading="lazy" className="image" src="./images/examples-8-354img@1x.jpg" alt="Аватар" width="450" />
-                  </picture>
-                </div>
-                <div className="card-content">
-                  <h2 className="title">Проект LAB</h2>
-                  <p className="text">Маркетинг</p>
-                </div>
-              </a>
-            </li>
-            <li className="item">
-              <a href="" className="link">
-                <div className="block-overlay">
-                  <p className="text-overlay">
-                    Технокряк это современная площадка распространения
-                    коронавируса. Компании используют эту платформу для
-                    цифрового шпионажа и атак на защищённые сервера конкурентов.
-                  </p>
-                  <picture>
-                    <source
-                      srcSet="./images/examples-9-450img@1x.webp 1x,
-                              ./images/examples-9-450img@2x.webp 2x"
-                      media="(max-width: 767px)"
-                      type="image/webp"
-                    />
-                    <source
-                      srcSet="./images/examples-9-354img@1x.webp 1x,
-                              ./images/examples-9-354img@2x.webp 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)"
-                      type="image/webp"
-                    />
-                    <source
-                      srcSet="./images/examples-9-370img@1x.webp 1x,
-                              ./images/examples-9-370img@2x.webp 2x"
-                      media="(min-width: 1200px)" type="image/webp"
-                    />
-
-                    <source
-                      srcSet="./images/examples-9-450img@1x.jpg 1x,
-                              ./images/examples-9-450img@2x.jpg 2x"
-                      media="(max-width: 767px)"
-                    />
-                    <source
-                      srcSet="./images/examples-9-354img@1x.jpg 1x,
-                              ./images/examples-9-354img@2x.jpg 2x"
-                      media="(min-width: 768px) and (max-width: 1199px)"
-                    />
-                    <source
-                      srcSet="./images/examples-9-370img@1x.jpg 1x,
-                              ./images/examples-9-370img@2x.jpg 2x"
-                      media="(min-width: 1200px)"
-                    />
-
-                    <img loading="lazy" className="image" src="./images/examples-9-354img@1x.jpg" alt="Аватар" width="450" />
-                  </picture>
-                </div>
-                <div className="card-content">
-                  <h2 className="title">Growing Business</h2>
-                  <p className="text">Приложение</p>
-                </div>
-              </a>
-            </li>
+                      </picture>
+                    </div>
+                    <div className="card-content">
+                      <h2 className="title">{title}</h2>
+                      <p className="text">{type}</p>
+                    </div>
+                  </a>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </section>
         </MainLayout>
     )
+}
+
+Portfolio.getInitialProps = async ({ req }) => {
+    if (!req) {
+      return {
+        serverTypes: null,
+        serverExamples: null
+      }
+    }
+    const {data: types} = await axios.get(`${process.env.API_URL}/portfolio-types`);
+    const {data: examples} = await axios.get(`${process.env.API_URL}/examples`);
+    return {
+        serverTypes: types,
+        serverExamples: examples
+    }
 }

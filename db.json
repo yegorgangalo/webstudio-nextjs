@@ -1,4 +1,169 @@
 {
+  "portfolio-types":["Все","Приложения","Веб-сайты","Дизайн","Маркетинг"],
+  "examples":[
+    {
+      "id": 1,
+      "title":"Технокряк",
+      "type":"Веб-сайт",
+      "text": "Технокряк это современная площадка распространения коронавируса. Компании используют эту платформу для цифрового шпионажа и атак на защищённые сервера конкурентов.",
+      "picture":{
+        "webp": {
+          "mobile":["./images/examples-1-450img@1x.webp","./images/examples-1-450img@2x.webp"],
+          "tablet":["./images/examples-1-354img@1x.webp","./images/examples-1-354img@2x.webp"],
+          "desktop":["./images/examples-1-370img@1x.webp","./images/examples-1-370img@2x.webp"]
+        },
+        "jpg": {
+          "mobile":["./images/examples-1-450img@1x.jpg","./images/examples-1-450img@2x.jpg"],
+          "tablet":["./images/examples-1-354img@1x.jpg","./images/examples-1-354img@2x.jpg"],
+          "desktop":["./images/examples-1-370img@1x.jpg","./images/examples-1-370img@2x.jpg"]
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title":"Постер New Orlean vs Golden Star",
+      "type":"Дизайн",
+      "text": "Технокряк это современная площадка распространения коронавируса. Компании используют эту платформу для цифрового шпионажа и атак на защищённые сервера конкурентов.",
+      "picture":{
+        "webp": {
+          "mobile":["./images/examples-2-450img@1x.webp","./images/examples-2-450img@2x.webp"],
+          "tablet":["./images/examples-2-354img@1x.webp","./images/examples-2-354img@2x.webp"],
+          "desktop":["./images/examples-2-370img@1x.webp","./images/examples-2-370img@2x.webp"]
+        },
+        "jpg": {
+          "mobile":["./images/examples-2-450img@1x.jpg","./images/examples-2-450img@2x.jpg"],
+          "tablet":["./images/examples-2-354img@1x.jpg","./images/examples-2-354img@2x.jpg"],
+          "desktop":["./images/examples-2-370img@1x.jpg","./images/examples-2-370img@2x.jpg"]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title":"Ресторан Seafood",
+      "type":"Приложение",
+      "text": "Технокряк это современная площадка распространения коронавируса. Компании используют эту платформу для цифрового шпионажа и атак на защищённые сервера конкурентов.",
+      "picture":{
+        "webp": {
+          "mobile":["./images/examples-3-450img@1x.webp","./images/examples-3-450img@2x.webp"],
+          "tablet":["./images/examples-3-354img@1x.webp","./images/examples-3-354img@2x.webp"],
+          "desktop":["./images/examples-3-370img@1x.webp","./images/examples-3-370img@2x.webp"]
+        },
+        "jpg": {
+          "mobile":["./images/examples-3-450img@1x.jpg","./images/examples-3-450img@2x.jpg"],
+          "tablet":["./images/examples-3-354img@1x.jpg","./images/examples-3-354img@2x.jpg"],
+          "desktop":["./images/examples-3-370img@1x.jpg","./images/examples-3-370img@2x.jpg"]
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title":"Проект Prime",
+      "type":"Маркетинг",
+      "text": "Технокряк это современная площадка распространения коронавируса. Компании используют эту платформу для цифрового шпионажа и атак на защищённые сервера конкурентов.",
+      "picture":{
+        "webp": {
+          "mobile":["./images/examples-4-450img@1x.webp","./images/examples-4-450img@2x.webp"],
+          "tablet":["./images/examples-4-354img@1x.webp","./images/examples-4-354img@2x.webp"],
+          "desktop":["./images/examples-4-370img@1x.webp","./images/examples-4-370img@2x.webp"]
+        },
+        "jpg": {
+          "mobile":["./images/examples-4-450img@1x.jpg","./images/examples-4-450img@2x.jpg"],
+          "tablet":["./images/examples-4-354img@1x.jpg","./images/examples-4-354img@2x.jpg"],
+          "desktop":["./images/examples-4-370img@1x.jpg","./images/examples-4-370img@2x.jpg"]
+        }
+      }
+    },
+    {
+      "id": 5,
+      "title":"Проект Boxes",
+      "type":"Приложение",
+      "text": "Технокряк это современная площадка распространения коронавируса. Компании используют эту платформу для цифрового шпионажа и атак на защищённые сервера конкурентов.",
+      "picture":{
+        "webp": {
+          "mobile":["./images/examples-5-450img@1x.webp","./images/examples-5-450img@2x.webp"],
+          "tablet":["./images/examples-5-354img@1x.webp","./images/examples-5-354img@2x.webp"],
+          "desktop":["./images/examples-5-370img@1x.webp","./images/examples-5-370img@2x.webp"]
+        },
+        "jpg": {
+          "mobile":["./images/examples-5-450img@1x.jpg","./images/examples-5-450img@2x.jpg"],
+          "tablet":["./images/examples-5-354img@1x.jpg","./images/examples-5-354img@2x.jpg"],
+          "desktop":["./images/examples-5-370img@1x.jpg","./images/examples-5-370img@2x.jpg"]
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title":"Inspiration has no Borders",
+      "type":"Веб-сайт",
+      "text": "Технокряк это современная площадка распространения коронавируса. Компании используют эту платформу для цифрового шпионажа и атак на защищённые сервера конкурентов.",
+      "picture":{
+        "webp": {
+          "mobile":["./images/examples-6-450img@1x.webp","./images/examples-6-450img@2x.webp"],
+          "tablet":["./images/examples-6-354img@1x.webp","./images/examples-6-354img@2x.webp"],
+          "desktop":["./images/examples-6-370img@1x.webp","./images/examples-6-370img@2x.webp"]
+        },
+        "jpg": {
+          "mobile":["./images/examples-6-450img@1x.jpg","./images/examples-6-450img@2x.jpg"],
+          "tablet":["./images/examples-6-354img@1x.jpg","./images/examples-6-354img@2x.jpg"],
+          "desktop":["./images/examples-6-370img@1x.jpg","./images/examples-6-370img@2x.jpg"]
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title":"Издание Limited Edition",
+      "type":"Дизайн",
+      "text": "Технокряк это современная площадка распространения коронавируса. Компании используют эту платформу для цифрового шпионажа и атак на защищённые сервера конкурентов.",
+      "picture":{
+        "webp": {
+          "mobile":["./images/examples-7-450img@1x.webp","./images/examples-7-450img@2x.webp"],
+          "tablet":["./images/examples-7-354img@1x.webp","./images/examples-7-354img@2x.webp"],
+          "desktop":["./images/examples-7-370img@1x.webp","./images/examples-7-370img@2x.webp"]
+        },
+        "jpg": {
+          "mobile":["./images/examples-7-450img@1x.jpg","./images/examples-7-450img@2x.jpg"],
+          "tablet":["./images/examples-7-354img@1x.jpg","./images/examples-7-354img@2x.jpg"],
+          "desktop":["./images/examples-7-370img@1x.jpg","./images/examples-7-370img@2x.jpg"]
+        }
+      }
+    },
+    {
+      "id": 8,
+      "title":"Проект LAB",
+      "type":"Маркетинг",
+      "text": "Технокряк это современная площадка распространения коронавируса. Компании используют эту платформу для цифрового шпионажа и атак на защищённые сервера конкурентов.",
+      "picture":{
+        "webp": {
+          "mobile":["./images/examples-8-450img@1x.webp","./images/examples-8-450img@2x.webp"],
+          "tablet":["./images/examples-8-354img@1x.webp","./images/examples-8-354img@2x.webp"],
+          "desktop":["./images/examples-8-370img@1x.webp","./images/examples-8-370img@2x.webp"]
+        },
+        "jpg": {
+          "mobile":["./images/examples-8-450img@1x.jpg","./images/examples-8-450img@2x.jpg"],
+          "tablet":["./images/examples-8-354img@1x.jpg","./images/examples-8-354img@2x.jpg"],
+          "desktop":["./images/examples-8-370img@1x.jpg","./images/examples-8-370img@2x.jpg"]
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title":"Growing Business",
+      "type":"Приложение",
+      "text": "Технокряк это современная площадка распространения коронавируса. Компании используют эту платформу для цифрового шпионажа и атак на защищённые сервера конкурентов.",
+      "picture":{
+        "webp": {
+          "mobile":["./images/examples-9-450img@1x.webp","./images/examples-9-450img@2x.webp"],
+          "tablet":["./images/examples-9-354img@1x.webp","./images/examples-9-354img@2x.webp"],
+          "desktop":["./images/examples-9-370img@1x.webp","./images/examples-9-370img@2x.webp"]
+        },
+        "jpg": {
+          "mobile":["./images/examples-9-450img@1x.jpg","./images/examples-9-450img@2x.jpg"],
+          "tablet":["./images/examples-9-354img@1x.jpg","./images/examples-9-354img@2x.jpg"],
+          "desktop":["./images/examples-9-370img@1x.jpg","./images/examples-9-370img@2x.jpg"]
+        }
+      }
+    }
+  ],
   "form": [
     {
       "name": "yegorushkas",
@@ -97,7 +262,115 @@
       "email": "erer@erer.com",
       "message": "dfgdfg",
       "id": 14
+    },
+    {
+      "name": "dfgdfgdfgdfgdfg",
+      "tel": "380934353534",
+      "email": "dfgg@dfg.com",
+      "id": 15
+    },
+    {
+      "name": "yan",
+      "tel": "380932323234",
+      "email": "dfgdg@df.cdf",
+      "id": 16
+    },
+    {
+      "name": "",
+      "tel": "380932323233",
+      "email": "dfdfg@df.com",
+      "id": 17
+    },
+    {
+      "name": "",
+      "tel": "380932323234",
+      "email": "dfdf@dfdf.com",
+      "id": 18
+    },
+    {
+      "name": "",
+      "tel": "380932323234",
+      "email": "dfgdfgdfg@dffd.com",
+      "id": 19
+    },
+    {
+      "name": "aav",
+      "tel": "380932323234",
+      "email": "dfdf@dfdf.com",
+      "id": 20
+    },
+    {
+      "name": "aaad",
+      "tel": "380933434343",
+      "email": "sdd@d.dd",
+      "id": 21
+    },
+    {
+      "name": "sdd",
+      "tel": "380932323234",
+      "email": "sdsd@df.df",
+      "checkbox": true,
+      "id": 22
+    },
+    {
+      "name": "dgg",
+      "tel": "380934343434",
+      "email": "sdsd@df.df",
+      "checkbox": true,
+      "id": 23
+    },
+    {
+      "name": "dfdf",
+      "tel": "380933434342",
+      "email": "dfdf@df.df",
+      "checkbox": true,
+      "id": 24
+    },
+    {
+      "name": "dfdf",
+      "tel": "380932323234",
+      "email": "dfdf@df.df",
+      "checkbox": true,
+      "id": 25
+    },
+    {
+      "name": "dfg",
+      "tel": "380932040342",
+      "email": "dfdf@df.dd",
+      "checkbox": true,
+      "id": 26
+    },
+    {
+      "name": "sdfsdf",
+      "tel": "380932323234",
+      "email": "sdf@sdf.com",
+      "checkbox": true,
+      "id": 27
+    },
+    {
+      "name": "cvbcb",
+      "tel": "380933434345",
+      "email": "dfg@dfg.cfg",
+      "checkbox": true,
+      "id": 28
     }
   ],
-  "mailing": []
+  "mailing": [
+    {
+      "email": "asd@asd.com",
+      "id": 1
+    },
+    {
+      "email": "asd@asd.com",
+      "id": 2
+    },
+    {
+      "email": "dfg@dfg.cn",
+      "id": 3
+    },
+    {
+      "email": "as@d.dd",
+      "id": 4
+    }
+  ]
 }
