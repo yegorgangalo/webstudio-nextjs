@@ -45,8 +45,10 @@
   }
 
   & .title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     margin-bottom: 4px;
-
     color: getColor("title-text");
     font-weight: 700;
     font-size: 18px;
