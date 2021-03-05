@@ -1,31 +1,13 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Checkbox } from "@material-ui/core";
 
 export default function Form({ onClose }) {
-    const { register, handleSubmit, errors, control, reset } = useForm();
+    const { register, handleSubmit, errors, reset } = useForm();
 
-    // const takeFormData = event => {
-    //     event.preventDefault();
-    //     const formRef = event.target;
-    //     const formData = new FormData(formRef);
-    //     const submittedData = {};
-
-    //     formData.forEach((value, key) => {
-    //       submittedData[key] = value;
-    //     });
-
-    //   axios.post(`${process.env.API_URL}/form`, submittedData)
-    //     .then((res) => {
-    //       onClose();
-    //       toast("Your info have been sent");
-    //     })
-    //     .catch(err => toast(err.message))
-    // };
-
-  const formSubmit = (data) => {
+    const formSubmit = (data) => {
       axios.post(`${process.env.API_URL}/form`, data)
         .then((res) => {
           reset();
@@ -78,34 +60,16 @@ export default function Form({ onClose }) {
               name="message"
               placeholder="Введите текст"
               rows="7"
+              ref={register}
             ></textarea>
           </label>
 
-          <label className="form-checkbox" data-checkbox-label>
-            <Controller
-              name="checkbox"
-              control={control}
-              defaultValue={false}
-              rules={{ required: true }}
-              render={props =>
-                <Checkbox
-                  onChange={e => props.onChange(e.target.checked)}
-                  checked={props.value}
-                  inputProps={{ 'aria-label': 'checkbox' }}
-                  color="default"
-                />
-              }
+          <label className="form-checkbox">
+            <Checkbox
+                inputProps={{ 'aria-label': 'checkbox' }}
+                color="default"
+                required
             />
-            {/* <input
-              className="form-checkbox__input visually-hidden"
-              type="checkbox"
-              name="checkbox"
-              tabIndex="-1"
-              data-checkbox-input
-            />
-            <svg className="checkbox-icon" tabIndex="0" data-checkbox-icon>
-              <use href="./images/sprite.svg#modal-checkbox-icon" />
-            </svg> */}
             <span className="form__text-checkbox">Соглашаюсь с рассылкой и принимаю <a className="checkbox__text-link" href="#!">Условия договора</a>
             {errors.checkbox && ". Нужно принять условия договора!"}
             </span>

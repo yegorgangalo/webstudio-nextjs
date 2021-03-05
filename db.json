@@ -1,5 +1,5 @@
 {
-  "portfolio-types": [
+  "types": [
     "Все",
     "Приложения",
     "Веб-сайты",
@@ -543,6 +543,10 @@
     {
       "email": "xcv@asd.asd",
       "id": 5
+    },
+    {
+      "email": "dfgdg@as.com",
+      "id": 6
     }
   ]
 }

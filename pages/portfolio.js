@@ -11,7 +11,7 @@ export default function Portfolio({ serverTypes, serverExamples }) {
 
     useEffect(() => {
         async function load() {
-          const {data: portfolioTypes} = await axios.get(`${process.env.API_URL}/portfolio-types`);
+          const {data: portfolioTypes} = await axios.get(`${process.env.API_URL}/types`);
           setTypes(portfolioTypes);
           const {data: portfolioExamples} = await axios.get(`${process.env.API_URL}/examples`);
           setExamples(portfolioExamples);
@@ -47,7 +47,7 @@ Portfolio.getInitialProps = async ({ req }) => {
         serverExamples: null
       }
     }
-    const {data: types} = await axios.get(`${process.env.API_URL}/portfolio-types`);
+    const {data: types} = await axios.get(`${process.env.API_URL}/types`);
     const {data: examples} = await axios.get(`${process.env.API_URL}/examples`);
     return {
         serverTypes: types,
