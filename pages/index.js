@@ -1,12 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
+import axios from 'axios';
 import { MainLayout } from '../layouts/MainLayout';
 import Form from '../components/Form';
 const Modal = dynamic(() => import('../components/Modal'))
 
 
-export default function Home() {
-    const [showModal, setShowModal] = useState(false);
+export default function Home({serverAdvantages, serverWork, serverCommand, serverClients}) {
+  const [showModal, setShowModal] = useState(false);
+  const [advantages, setAdvantages] = useState(serverAdvantages);
+  const [work, setWork] = useState(serverWork);
+  const [command, setCommand] = useState(serverCommand);
+  const [clients, setClients] = useState(serverClients);
+
+  useEffect(() => {
+        async function load() {
+          const {data: advantagesCSR} = await axios.get(`${process.env.API_URL}/advantages`);
+          setAdvantages(advantagesCSR);
+          const {data: commandCSR} = await axios.get(`${process.env.API_URL}/command`);
+          setCommand(commandCSR);
+          const {data: workCSR} = await axios.get(`${process.env.API_URL}/work`);
+          setWork(workCSR);
+          const {data: clientsCSR} = await axios.get(`${process.env.API_URL}/clients`);
+          setClients(clientsCSR);
+        }
+        !serverAdvantages && !serverWork && !serverCommand && !serverClients && load();
+    }, [])
+
+    if (!advantages || !work || !command || !clients) {
+        return (
+            <MainLayout headTitle="Home">
+                <p>Loading...</p>
+            </MainLayout>
+        )
+    }
 
     const toggleModal = () => {
       setShowModal(value => !value);
@@ -34,54 +61,18 @@ export default function Home() {
         <div className="container">
           <h2 className="visually-hidden">Преимущества</h2>
           <ul className="advantages-list list">
-            <li className="item">
-              <div className="advantages-background">
-                <svg className="advantages-icon">
-                  <use href="./images/sprite.svg#adv-antenna-1" />
-                </svg>
-              </div>
-              <h3 className="title">Внимание к деталям</h3>
-              <p className="text">
-                Идейные соображения, а также начало повседневной работы по
-                формированию позиции.
-              </p>
-            </li>
-            <li className="item">
-              <div className="advantages-background">
-                <svg className="advantages-icon">
-                  <use href="./images/sprite.svg#adv-clock-2" />
-                </svg>
-              </div>
-              <h3 className="title">Пунктуальность</h3>
-              <p className="text">
-                Задача организации, в особенности же рамки и место обучения
-                кадров влечет за собой.
-              </p>
-            </li>
-            <li className="item">
-              <div className="advantages-background">
-                <svg className="advantages-icon">
-                  <use href="./images/sprite.svg#adv-diagram-3" />
-                </svg>
-              </div>
-              <h3 className="title">Планирование</h3>
-              <p className="text">
-                Равным образом консультация с широким активом в значительной
-                степени обуславливает.
-              </p>
-            </li>
-            <li className="item">
-              <div className="advantages-background">
-                <svg className="advantages-icon">
-                  <use href="./images/sprite.svg#adv-astronaut-4" />
-                </svg>
-              </div>
-              <h3 className="title">Современные технологии</h3>
-              <p className="text">
-                Значимость этих проблем настолько очевидна, что реализация
-                плановых заданий.
-              </p>
-            </li>
+              {advantages.map(({id, title, text, image }) => (
+                <li className="item" key={id}>
+                  <div className="advantages-background">
+                    <svg className="advantages-icon">
+                      <use href={image} />
+                    </svg>
+                  </div>
+                  <h3 className="title">{title}</h3>
+                  <p className="text"> {text} </p>
+                </li>
+                ))
+              }
           </ul>
         </div>
       </section>
@@ -91,71 +82,27 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title">Чем мы занимаемся</h2>
           <ul className="work-list list">
-            <li className="item">
-              <picture>
-                <source
-                  srcSet="./images/work-1-img-370@1x.webp 370w,
-                          ./images/work-1-img-370@2x.webp 740w,
-                          ./images/work-1-img-370@3x.webp 1110w"
-                  sizes="(min-width: 1200px) 370px"
-                  type="image/webp"
-                />
-                <img
-                  loading="lazy"
-                  className="image"
-                  srcSet="./images/work-1-img-370@1x.jpg 370w,
-                          ./images/work-1-img-370@2x.jpg 740w,
-                          ./images/work-1-img-370@3x.jpg 1110w"
-                  src="./images/work-1-img-370@1x.jpg"
-                  alt="Программируем"
-                  sizes="(min-width: 1200px) 370px"
-                  width="370"
-                />
-              </picture>
-              <h3 className="title">Десктопные приложения</h3>
-            </li>
-            <li className="item">
-              <picture>
-                <source
-                  srcSet="./images/work-2-img-370@1x.webp 370w,
-                          ./images/work-2-img-370@2x.webp 740w,
-                          ./images/work-2-img-370@3x.webp 1110w"
-                  sizes="(min-width: 1200px) 370px"
-                  type="image/webp"
-                />
-                <img loading="lazy" className="image"
-                  srcSet="./images/work-2-img-370@1x.jpg 370w,
-                          ./images/work-2-img-370@2x.jpg 740w,
-                          ./images/work-2-img-370@3x.jpg 1110w"
-                  src="./images/work-2-img-370@1x.jpg"
-                  alt="Верстаем"
-                  sizes="(min-width: 1200px) 370px"
-                  width="370"
-                />
-              </picture>
-              <h3 className="title">Мобильные приложения</h3>
-            </li>
-            <li className="item">
-              <picture>
-                <source
-                  srcSet="./images/work-3-img-370@1x.webp 370w,
-                          ./images/work-3-img-370@2x.webp 740w,
-                          ./images/work-3-img-370@3x.webp 1110w"
-                  sizes="(min-width: 1200px) 370px"
-                  type="image/webp"
-                />
-                <img loading="lazy" className="image"
-                  srcSet="./images/work-3-img-370@1x.jpg 370w,
-                          ./images/work-3-img-370@2x.jpg 740w,
-                          ./images/work-3-img-370@3x.jpg 1110w"
-                  src="./images/work-3-img-370@1x.jpg"
-                  alt="Рисуем"
-                  sizes="(min-width: 1200px) 370px"
-                  width="370"
-                />
-              </picture>
-              <h3 className="title">Дизайнерские решения</h3>
-            </li>
+              {work.map(({ id, title, alt, picture: { webp, jpg }}) => (
+                <li className="item" key={id}>
+                  <picture>
+                    <source
+                      srcSet={`${webp[0]} 370w, ${webp[1]} 740w, ${webp[2]} 1110w`}
+                      sizes="(min-width: 1200px) 370px"
+                      type="image/webp"
+                    />
+                    <img
+                      loading="lazy"
+                      className="image"
+                      srcSet={`${jpg[0]} 370w, ${jpg[1]} 740w, ${jpg[2]} 1110w`}
+                      src={jpg[0]}
+                      alt={alt}
+                      sizes="(min-width: 1200px) 370px"
+                      width="370"
+                    />
+                  </picture>
+                  <h3 className="title">{title}</h3>
+                </li>
+              ))}
           </ul>
         </div>
       </section>
@@ -165,346 +112,62 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title">Наша команда</h2>
           <ul className="command-list list">
-            <li className="item">
-                <picture>
-                  <source
-                    srcSet="./images/comand-1-450img@1x.webp 1x,
-                            ./images/comand-1-450img@2x.webp 2x"
-                    media="(max-width: 767px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet="./images/comand-1-354img@1x.webp 1x,
-                            ./images/comand-1-354img@2x.webp 2x"
-                    media="(min-width: 768px) and (max-width: 1199px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet="./images/comand-1-270img@1x.webp 1x,
-                            ./images/comand-1-270img@2x.webp 2x"
-                    media="(min-width: 1200px)"
-                    type="image/webp"
-                  />
+              {command.map(({ id, title, text, picture:{webp, jpg}, socLinks }) => (
+                <li className="item" key={id}>
+                  <picture>
+                        <source
+                          srcSet={`${webp.mobile[0]} 1x, ${webp.mobile[1]} 2x`}
+                          media="(max-width: 767px)"
+                          type="image/webp"
+                        />
+                        <source
+                          srcSet={`${webp.tablet[0]} 1x, ${webp.tablet[1]} 2x`}
+                          media="(min-width: 768px) and (max-width: 1199px)"
+                          type="image/webp"
+                        />
+                        <source
+                          srcSet={`${webp.desktop[0]} 1x, ${webp.desktop[1]} 2x`}
+                          media="(min-width: 1200px)"
+                          type="image/webp"
+                        />
 
-                  <source
-                    srcSet="./images/comand-1-450img@1x.jpg 1x,
-                            ./images/comand-1-450img@2x.jpg 2x"
-                    media="(max-width: 767px)"
-                  />
-                  <source
-                    srcSet="./images/comand-1-354img@1x.jpg 1x,
-                            ./images/comand-1-354img@2x.jpg 2x"
-                    media="(min-width: 768px) and (max-width: 1199px)"
-                  />
-                  <source
-                    srcSet="./images/comand-1-270img@1x.jpg 1x,
-                            ./images/comand-1-270img@2x.jpg 2x"
-                    media="(min-width: 1200px)"
-                  />
+                        <source
+                          srcSet={`${jpg.mobile[0]} 1x, ${jpg.mobile[1]} 2x`}
+                          media="(max-width: 767px)"
+                        />
+                        <source
+                          srcSet={`${jpg.tablet[0]} 1x, ${jpg.tablet[1]} 2x`}
+                          media="(min-width: 768px) and (max-width: 1199px)"
+                        />
+                        <source
+                          srcSet={`${jpg.desktop[0]} 1x, ${jpg.desktop[1]} 2x`}
+                          media="(min-width: 1200px)"
+                        />
 
-                  <img loading="lazy" className="image"
-                    src="./images/comand-1-354img@1x.jpg" alt="Аватар"
-                    width="450"
-                  />
-                </picture>
-              <div className="command-card-content">
-                <h3 className="title">Игорь Демьяненко</h3>
-                <p className="text">Product Designer</p>
-                <ul className="social-list list">
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-instagram-1"
+                        <img loading="lazy" className="image"
+                          src={`${jpg.tablet[0]}`}
+                          alt="Аватар"
+                          width="450"
+                          height="350"
                         />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-twitter-2"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-facebook-3"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-linkedin-4"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className="item">
-              <picture>
-                  <source
-                    srcSet="./images/comand-2-450img@1x.webp 1x,
-                            ./images/comand-2-450img@2x.webp 2x"
-                    media="(max-width: 767px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet="./images/comand-2-354img@1x.webp 1x,
-                            ./images/comand-2-354img@2x.webp 2x"
-                    media="(min-width: 768px) and (max-width: 1199px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet="./images/comand-2-270img@1x.webp 1x,
-                            ./images/comand-2-270img@2x.webp 2x"
-                    media="(min-width: 1200px)"
-                    type="image/webp"
-                  />
-
-                  <source
-                    srcSet="./images/comand-2-450img@1x.jpg 1x,
-                            ./images/comand-2-450img@2x.jpg 2x"
-                    media="(max-width: 767px)"
-                  />
-                  <source
-                    srcSet="./images/comand-2-354img@1x.jpg 1x,
-                            ./images/comand-2-354img@2x.jpg 2x"
-                    media="(min-width: 768px) and (max-width: 1199px)"
-                  />
-                  <source
-                    srcSet="./images/comand-2-270img@1x.jpg 1x,
-                            ./images/comand-2-270img@2x.jpg 2x"
-                    media="(min-width: 1200px)"
-                  />
-
-                  <img loading="lazy" className="image"
-                    src="./images/comand-2-354img@1x.jpg" alt="Аватар"
-                    width="450"
-                  />
-                </picture>
-              <div className="command-card-content">
-                <h3 className="title">Ольга Репина</h3>
-                <p className="text">Frontend Developer</p>
-                <ul className="social-list list">
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-instagram-1"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-twitter-2"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-facebook-3"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-linkedin-4"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className="item">
-              <picture>
-                  <source
-                    srcSet="./images/comand-3-450img@1x.webp 1x,
-                            ./images/comand-3-450img@2x.webp 2x"
-                    media="(max-width: 767px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet="./images/comand-3-354img@1x.webp 1x,
-                            ./images/comand-3-354img@2x.webp 2x"
-                    media="(min-width: 768px) and (max-width: 1199px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet="./images/comand-3-270img@1x.webp 1x,
-                            ./images/comand-3-270img@2x.webp 2x"
-                    media="(min-width: 1200px)"
-                    type="image/webp"
-                  />
-
-                  <source
-                    srcSet="./images/comand-3-450img@1x.jpg 1x,
-                            ./images/comand-3-450img@2x.jpg 2x"
-                    media="(max-width: 767px)"
-                  />
-                  <source
-                    srcSet="./images/comand-3-354img@1x.jpg 1x,
-                            ./images/comand-3-354img@2x.jpg 2x"
-                    media="(min-width: 768px) and (max-width: 1199px)"
-                  />
-                  <source
-                    srcSet="./images/comand-3-270img@1x.jpg 1x,
-                            ./images/comand-3-270img@2x.jpg 2x"
-                    media="(min-width: 1200px)"
-                  />
-
-                  <img loading="lazy" className="image"
-                    src="./images/comand-3-354img@1x.jpg" alt="Аватар"
-                    width="450"
-                  />
-                </picture>
-              <div className="command-card-content">
-                <h3 className="title">Николай Тарасов</h3>
-                <p className="text">Marketing</p>
-                <ul className="social-list list">
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-instagram-1"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-twitter-2"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-facebook-3"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-linkedin-4"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className="item">
-              <picture>
-                  <source
-                    srcSet="./images/comand-4-450img@1x.webp 1x,
-                            ./images/comand-4-450img@2x.webp 2x"
-                    media="(max-width: 767px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet="./images/comand-4-354img@1x.webp 1x,
-                            ./images/comand-4-354img@2x.webp 2x"
-                    media="(min-width: 768px) and (max-width: 1199px)"
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet="./images/comand-4-270img@1x.webp 1x,
-                            ./images/comand-4-270img@2x.webp 2x"
-                    media="(min-width: 1200px)"
-                    type="image/webp"
-                  />
-
-                  <source
-                    srcSet="./images/comand-4-450img@1x.jpg 1x,
-                            ./images/comand-4-450img@2x.jpg 2x"
-                    media="(max-width: 767px)"
-                  />
-                  <source
-                    srcSet="./images/comand-4-354img@1x.jpg 1x,
-                            ./images/comand-4-354img@2x.jpg 2x"
-                    media="(min-width: 768px) and (max-width: 1199px)"
-                  />
-                  <source
-                    srcSet="./images/comand-4-270img@1x.jpg 1x,
-                            ./images/comand-4-270img@2x.jpg 2x"
-                    media="(min-width: 1200px)"
-                  />
-
-                  <img loading="lazy" className="image"
-                    src="./images/comand-4-354img@1x.jpg" alt="Аватар"
-                    width="450"
-                  />
-                </picture>
-              <div className="command-card-content">
-                <h3 className="title">Михаил Ермаков</h3>
-                <p className="text">UI Designer</p>
-                <ul className="social-list list">
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-instagram-1"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-twitter-2"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-facebook-3"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                  <li className="social-item">
-                    <a href="" className="social-link link" aria-label="ссылка на соцсеть" target="_blank" rel="noopener noreferrer">
-                      <svg className="social-icon">
-                        <use
-                          href="./images/sprite.svg#command-card-linkedin-4"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
+                  </picture>
+                  <div className="command-card-content">
+                    <h3 className="title">{title}</h3>
+                    <p className="text">{text}</p>
+                    <ul className="social-list list">
+                      {socLinks.map(({ name, image, href }) => (
+                        <li className="social-item" key={name}>
+                          <a href={href} className="social-link link" aria-label={`ссылка на ${name}`} target="_blank" rel="noopener noreferrer">
+                          <svg className="social-icon">
+                            <use href={image} />
+                          </svg>
+                        </a>
+                      </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))}
           </ul>
         </div>
       </section>
@@ -514,51 +177,39 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title">Постоянные клиенты</h2>
           <ul className="clients-list list">
-            <li className="item">
-              <a className="clients-link" href="" aria-label="ссылка на сайт клиента" target="_blank" rel="noopener noreferrer">
-                <svg className="clients-icon" width="44" height="49">
-                  <use href="./images/sprite.svg#clients-logo-1" />
-                </svg>
-              </a>
-            </li>
-            <li className="item">
-              <a className="clients-link" href="" aria-label="ссылка на сайт клиента" target="_blank" rel="noopener noreferrer">
-                <svg className="clients-icon" width="40" height="52">
-                  <use href="./images/sprite.svg#clients-logo-2" />
-                </svg>
-              </a>
-            </li>
-            <li className="item">
-              <a className="clients-link" href="" aria-label="ссылка на сайт клиента" target="_blank" rel="noopener noreferrer">
-                <svg className="clients-icon" width="41" height="43">
-                  <use href="./images/sprite.svg#clients-logo-3" />
-                </svg>
-              </a>
-            </li>
-            <li className="item">
-              <a className="clients-link" href="" aria-label="ссылка на сайт клиента" target="_blank" rel="noopener noreferrer">
-                <svg className="clients-icon" width="80" height="42">
-                  <use href="./images/sprite.svg#clients-logo-4" />
-                </svg>
-              </a>
-            </li>
-            <li className="item">
-              <a className="clients-link" href="" aria-label="ссылка на сайт клиента" target="_blank" rel="noopener noreferrer">
-                <svg className="clients-icon" width="59" height="47">
-                  <use href="./images/sprite.svg#clients-logo-5" />
-                </svg>
-              </a>
-            </li>
-            <li className="item">
-              <a className="clients-link" href="" aria-label="ссылка на сайт клиента" target="_blank" rel="noopener noreferrer">
-                <svg className="clients-icon" width="88" height="45">
-                  <use href="./images/sprite.svg#clients-logo-6" />
-                </svg>
-              </a>
-            </li>
+              {clients.map(({ id, image, href, width, height }) => (
+                <li className="item" key={id}>
+                  <a className="clients-link" href={href} aria-label="ссылка на сайт клиента" target="_blank" rel="noopener noreferrer">
+                    <svg className="clients-icon" width={width} height={height}>
+                      <use href={image} />
+                    </svg>
+                  </a>
+                </li>
+              ))}
           </ul>
         </div>
         </section>
         </MainLayout>
     )
+}
+
+Home.getInitialProps = async ({ req }) => {
+    if (!req) {
+      return {
+        serverAdvantages: null,
+        serverCommand: null,
+        serverWork: null,
+        serverClients: null
+      }
+    }
+    const {data: advantages} = await axios.get(`${process.env.API_URL}/advantages`);
+    const {data: command} = await axios.get(`${process.env.API_URL}/command`);
+    const {data: work} = await axios.get(`${process.env.API_URL}/work`);
+    const {data: clients} = await axios.get(`${process.env.API_URL}/clients`);
+    return {
+      serverAdvantages: advantages,
+      serverCommand: command,
+      serverWork: work,
+      serverClients: clients
+    }
 }
