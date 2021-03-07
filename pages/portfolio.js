@@ -3,6 +3,7 @@ import axios from 'axios';
 import { MainLayout } from '../layouts/MainLayout';
 import ExampleList from '../components/ExampleList';
 import FilterBtnList from '../components/FilterBtnList';
+import Spinner from '../components/Spinner';
 
 export default function Portfolio({ serverTypes, serverExamples }) {
   const [types, setTypes] = useState(serverTypes);
@@ -22,7 +23,7 @@ export default function Portfolio({ serverTypes, serverExamples }) {
     if (!types || !examples) {
         return (
             <MainLayout headTitle="Portfolio">
-                <p>Loading...</p>
+                <Spinner/>
             </MainLayout>
         )
     }

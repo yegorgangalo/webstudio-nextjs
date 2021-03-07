@@ -32,7 +32,6 @@ export default function Home({serverAdvantages, serverWork, serverCommand, serve
         return (
             <MainLayout headTitle="Home">
                 <Spinner/>
-                <p>Loading...</p>
             </MainLayout>
         )
     }
