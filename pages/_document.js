@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="ru">
             <Head>
                 <link
                   rel="stylesheet"
@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
                 />
             </Head>
         <body>
-          <Main />
+          <Main/>
           <NextScript />
           <div id="modal-root"></div>
         </body>

@@ -1,6 +1,5 @@
 body {
   margin: 0;
-
   color: getColor("primary-text");
   font-family: Roboto, sans-serif;
   letter-spacing: 0.03em;
@@ -9,6 +8,10 @@ body {
 
 body.modal-open {
   overflow: hidden;
+}
+
+main {
+  min-height: 80vh;
 }
 
 * {

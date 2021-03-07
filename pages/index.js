@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import axios from 'axios';
 import { MainLayout } from '../layouts/MainLayout';
 import Form from '../components/Form';
+import Spinner from '../components/Spinner';
 const Modal = dynamic(() => import('../components/Modal'))
 
 
@@ -30,6 +31,7 @@ export default function Home({serverAdvantages, serverWork, serverCommand, serve
     if (!advantages || !work || !command || !clients) {
         return (
             <MainLayout headTitle="Home">
+                <Spinner/>
                 <p>Loading...</p>
             </MainLayout>
         )
@@ -46,66 +48,64 @@ export default function Home({serverAdvantages, serverWork, serverCommand, serve
             <Form onClose={toggleModal}/>
           </Modal>
         }
-            {/* <!--hero section--> */}
-      <section className="hero hero-overlay">
-        <div className="container">
-          <h1 className="hero-title">
-            Эффективные решения для вашего бизнеса
-          </h1>
-          <button className="button--primary" data-modal-open onClick={toggleModal}>Заказать услугу</button>
-        </div>
-      </section>
+        {/* <!--hero section--> */}
+        <section className="hero hero-overlay">
+          <div className="container">
+            <h1 className="hero-title"> Эффективные решения для вашего бизнеса </h1>
+            <button className="button--primary" onClick={toggleModal}>Заказать услугу</button>
+          </div>
+        </section>
 
-      {/* <!--advantages section--> */}
-      <section className="advantages">
-        <div className="container">
-          <h2 className="visually-hidden">Преимущества</h2>
-          <ul className="advantages-list list">
-              {advantages.map(({id, title, text, image }) => (
-                <li className="item" key={id}>
-                  <div className="advantages-background">
-                    <svg className="advantages-icon">
-                      <use href={image} />
-                    </svg>
-                  </div>
-                  <h3 className="title">{title}</h3>
-                  <p className="text"> {text} </p>
-                </li>
-                ))
-              }
-          </ul>
-        </div>
-      </section>
+        {/* <!--advantages section--> */}
+        <section className="advantages">
+          <div className="container">
+            <h2 className="visually-hidden">Преимущества</h2>
+            <ul className="advantages-list list">
+                {advantages.map(({id, title, text, image }) => (
+                  <li className="item" key={id}>
+                    <div className="advantages-background">
+                      <svg className="advantages-icon">
+                        <use href={image} />
+                      </svg>
+                    </div>
+                    <h3 className="title">{title}</h3>
+                    <p className="text"> {text} </p>
+                  </li>
+                  ))
+                }
+            </ul>
+          </div>
+        </section>
 
-      {/* <!--work section--> */}
-      <section className="work">
-        <div className="container">
-          <h2 className="section-title">Чем мы занимаемся</h2>
-          <ul className="work-list list">
-              {work.map(({ id, title, alt, picture: { webp, jpg }}) => (
-                <li className="item" key={id}>
-                  <picture>
-                    <source
-                      srcSet={`${webp[0]} 370w, ${webp[1]} 740w, ${webp[2]} 1110w`}
-                      sizes="(min-width: 1200px) 370px"
-                      type="image/webp"
-                    />
-                    <img
-                      loading="lazy"
-                      className="image"
-                      srcSet={`${jpg[0]} 370w, ${jpg[1]} 740w, ${jpg[2]} 1110w`}
-                      src={jpg[0]}
-                      alt={alt}
-                      sizes="(min-width: 1200px) 370px"
-                      width="370"
-                    />
-                  </picture>
-                  <h3 className="title">{title}</h3>
-                </li>
-              ))}
-          </ul>
-        </div>
-      </section>
+        {/* <!--work section--> */}
+        <section className="work">
+          <div className="container">
+            <h2 className="section-title">Чем мы занимаемся</h2>
+            <ul className="work-list list">
+                {work.map(({ id, title, alt, picture: { webp, jpg }}) => (
+                  <li className="item" key={id}>
+                    <picture>
+                      <source
+                        srcSet={`${webp[0]} 370w, ${webp[1]} 740w, ${webp[2]} 1110w`}
+                        sizes="(min-width: 1200px) 370px"
+                        type="image/webp"
+                      />
+                      <img
+                        loading="lazy"
+                        className="image"
+                        srcSet={`${jpg[0]} 370w, ${jpg[1]} 740w, ${jpg[2]} 1110w`}
+                        src={jpg[0]}
+                        alt={alt}
+                        sizes="(min-width: 1200px) 370px"
+                        width="370"
+                      />
+                    </picture>
+                    <h3 className="title">{title}</h3>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </section>
 
       {/* <!--Our command section--> */}
       <section className="command">
