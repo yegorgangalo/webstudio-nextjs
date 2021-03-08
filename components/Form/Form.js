@@ -26,7 +26,7 @@ export default function Form({ onClose }) {
           <label className="form-field">
             <span className="form-text">Имя{errors.name && ". Длина от 3 до 30 символов. Только буквы"}</span>
             <span className="form__input-wrapper">
-              <input className="form-input" type="text" name="name" ref={register({ pattern: /^[a-zA-ZА-Яа-яЁё\s]+$/i, minLength: 3, maxLength: 30 })} required/>
+              <input className="form-input" type="text" name="name" ref={register({ pattern: /^[a-zA-ZА-Яа-яЁёієґї\s]+$/i, minLength: 3, maxLength: 30 })} required/>
               <svg className="form-icon">
                 <use href="./images/sprite.svg#modal-form-1-name" />
               </svg>
